@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="PublishConfigData" autoUpload="Always" serverName="hongkuan@dragon26.cse.unsw.edu.au:2233 password" remoteFilesAllowedToDisappearOnAutoupload="false">
+    <serverData>
+      <paths name="hongkuan@dragon26.cse.unsw.edu.au:2233 password">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/home/hongkuan/Projects/AutoImblearn" local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+    </serverData>
+    <option name="myAutoUpload" value="ALWAYS" />
+  </component>
+</project>
