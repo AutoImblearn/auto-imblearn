@@ -73,18 +73,15 @@ class CustomClassifier:
         self.f1 = f1
 
         if hasattr(self.clf, 'predict_proba'):
-            if self.args.T_model == "s2sl":
-                Y_proba = self.clf.predict_proba(X_test)
-            else:
-                Y_proba = self.clf.predict_proba(X_test)[:, 1]
+            Y_proba = self.clf.predict_proba(X_test)[:, 1]
             auroc = roc_auc_score(Y_test, Y_proba)
-            auprc = average_precision_score(Y_test, Y_proba)
-            self.auprc = auprc
+            # auprc = average_precision_score(Y_test, Y_proba)
+            # self.auprc = auprc
             self.auroc = auroc
 
             logging.info(
-                "\t AUPRC {:.4f}, AUROC {:.4f}. Precision {:.2f}% and Recall {:.2f}%. Real precision: {:.2f}% and recall: {:.2f}%. Number of true death: {}, predicted death: {}".format(
-                    auprc, auroc, w_precision * 100, w_recall * 100, precision * 100, recall * 100,
+                "\t AUROC {:.4f}. Precision {:.2f}% and Recall {:.2f}%. Real precision: {:.2f}% and recall: {:.2f}%. Number of true death: {}, predicted death: {}".format(
+                    auroc, w_precision * 100, w_recall * 100, precision * 100, recall * 100,
                     Y_test.sum(), Y_pred.sum()))
         else:
             logging.info(

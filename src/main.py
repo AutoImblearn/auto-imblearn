@@ -74,4 +74,7 @@ if __name__ == "__main__":
     automl = AutoImblearn(run_pipe, metric=args.metric)
     best_pipe, counter, best_score = automl.find_best(checked=checked, train_ratio=args.train_ratio)
     print("Final result:", best_pipe, counter, best_score)
-
+    best_pipe = list(best_pipe)
+    logging.info("Final result. Best pipe: {}, {}, {}, counter: {}, best score: {}".format(best_pipe[0], best_pipe[1],
+                                                                                           best_pipe[2], counter,
+                                                                                           best_score))
