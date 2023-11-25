@@ -123,7 +123,7 @@ class AutoImblearn:
                     tmp_pipe[0] = imp
                     best_pipe = set(tmp_pipe)
                     best_score = tmp
-                print("Current pipe: {}, counter: {}, best pipe: {}, best result: {}".format(tmp, counter, best_pipe, best))
+                print("Current pipe: {}, counter: {}, best pipe: {}, best result: {}".format(tmp, counter, best_pipe, best_score))
 
             # Choose resampler
             for resampler in self.resamplers:
@@ -148,7 +148,7 @@ class AutoImblearn:
                     tmp_pipe[1] = resampler
                     best_pipe = set(tmp_pipe)
                     best_score = tmp
-                print("Current pipe: {}, counter: {}, best pipe: {}, best result: {}".format(tmp, counter, best_pipe, best))
+                print("Current pipe: {}, counter: {}, best pipe: {}, best result: {}".format(tmp, counter, best_pipe, best_score))
 
             # Choose classifier
             for classifier in self.classifiers:
@@ -173,7 +173,7 @@ class AutoImblearn:
                     tmp_pipe[2] = classifier
                     best_pipe = set(tmp_pipe)
                     best_score = tmp
-                print("Current pipe: {}, counter: {}, best pipe: {}, best result: {}".format(tmp, counter, best_pipe, best))
+                print("Current pipe: {}, counter: {}, best pipe: {}, best result: {}".format(tmp, counter, best_pipe, best_score))
 
             if best_pipe == final_result:
                 break
