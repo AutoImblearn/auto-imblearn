@@ -99,10 +99,8 @@ class AutoImblearn:
         final_result = set([])
         while True:
 
+            # Brute force method
             # Choose imputation
-            best = 0
-
-            # Brute force
             for imp in self.imputers:
                 pipe = [imp, tmp_pipe[1], tmp_pipe[2]]
                 print(pipe)
@@ -121,16 +119,13 @@ class AutoImblearn:
                     checked[imp][tmp_pipe[1]][tmp_pipe[2]] = tmp
                     counter += 1
 
-                if tmp > best:
-                    best = tmp
-                if best > best_score:
+                if tmp > best_score:
                     tmp_pipe[0] = imp
                     best_pipe = set(tmp_pipe)
-                    best_score = best
+                    best_score = tmp
                 print("Current pipe: {}, counter: {}, best pipe: {}, best result: {}".format(tmp, counter, best_pipe, best))
 
             # Choose resampler
-            best = 0
             for resampler in self.resamplers:
                 pipe = [tmp_pipe[0], resampler, tmp_pipe[2]]
                 print(pipe)
@@ -149,16 +144,13 @@ class AutoImblearn:
                     checked[tmp_pipe[0]][resampler][tmp_pipe[2]] = tmp
                     counter += 1
 
-                if tmp > best:
-                    best = tmp
-                if best > best_score:
+                if tmp > best_score:
                     tmp_pipe[1] = resampler
                     best_pipe = set(tmp_pipe)
-                    best_score = best
+                    best_score = tmp
                 print("Current pipe: {}, counter: {}, best pipe: {}, best result: {}".format(tmp, counter, best_pipe, best))
 
             # Choose classifier
-            best = 0
             for classifier in self.classifiers:
                 pipe = [tmp_pipe[0], tmp_pipe[1], classifier]
                 print(pipe)
@@ -177,12 +169,10 @@ class AutoImblearn:
                     checked[tmp_pipe[0]][tmp_pipe[1]][classifier] = tmp
                     counter += 1
 
-                if tmp > best:
-                    best = tmp
-                if best > best_score:
+                if tmp > best_score:
                     tmp_pipe[2] = classifier
                     best_pipe = set(tmp_pipe)
-                    best_score = best
+                    best_score = tmp
                 print("Current pipe: {}, counter: {}, best pipe: {}, best result: {}".format(tmp, counter, best_pipe, best))
 
             if best_pipe == final_result:
