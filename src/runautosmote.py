@@ -77,21 +77,6 @@ class RunAutoSmote:
         # print("Results:", self.flags.dataset, score)
         return score
 
-    # def runpipe(self, clf=None, imp=None, metric="auroc"):
-    #     imp = "imp_" + imp + "_.p"
-    # command = ['python', 'train.py', '--device=cpu', '--clf={}'.format(clf), '--dataset={}'.format(imp),
-    #            '--metric={}'.format(metric)]
-    # command = " python train.py --device=cpu --clf={} --dataset={} --metric={}".format(clf, imp, metric)
-    # command = "cd /home/hongkuan/Projects/AutoImblearn/src/resamplers && source /home/hongkuan/anaconda3/etc/profile.d/conda.sh && conda activate NHANES && python train.py --device=cpu --clf={} --dataset={} --metric={}".format(clf, imp, metric)
-    # os.system(command)
-
-    # work_dir = os.path.join(os.getcwd(), "resamplers")
-    # p = subprocess.Popen(command, cwd=work_dir, shell=True, executable='/bin/bash')
-    # process = subprocess.Popen('/bin/bash', stdin=subprocess.PIPE, stdout=subprocess.PIPE, cwd=work_dir)
-    # out, err = process.communicate(command)
-
-    # p.wait()
-    # out, _ = p.communicate()
 
 if __name__ == "__main__":
     logging.basicConfig(filename='cvd.log', level=logging.DEBUG,
