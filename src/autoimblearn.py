@@ -211,6 +211,7 @@ class AutoImblearn:
                 result = run_autosmote.fit(clf=pipeline[2], imp=pipeline[0], metric=self.metric, train_ratio=1.0)
             else:
                 result = self.run_pipe.fit(pipeline, train_ratio=1.0)
+            saver.append(pipeline, result)
         return result
 
 
