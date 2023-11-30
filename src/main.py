@@ -76,6 +76,7 @@ if __name__ == "__main__":
 
     if args.train_ratio != 1.0:
         # Re-run the best pipeline with whole dataset to get the output score
+        print("Re-running best pipeline")
         best_score = automl.run_best(best_pipe)
 
     print("Final result:", best_pipe, counter, best_score)
