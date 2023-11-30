@@ -34,17 +34,18 @@ class RunPipe:
         logging.info("Preprocessing Start")
         self.preprocessor = DataPreprocess(data, self.args)
 
-    def stratifiedSample(self, X, y):
+    def stratifiedSample(self, X, y, train_ratio):
         data = pd.concat([X, y], axis=1)
-        new_data = data.groupby('Status', group_keys=False).apply(lambda x: x.sample(frac=self.args.train_ratio))
+        new_data = data.groupby('Status', group_keys=False).apply(lambda x: x.sample(frac=train_ratio))
         new_data.sort_index(inplace=True)
         new_data.reset_index(inplace=True, drop=True)
         columns = list(new_data.columns.values)
         columns.remove("Status")
-        self.X = new_data[columns].copy()
-        self.y = new_data["Status"].copy()
+        X = new_data[columns].copy()
+        y = new_data["Status"].copy()
+        return X, y
 
-    def fit(self, pipe):
+    def fit(self, pipe, train_ratio=1.0):
         # Run the pipeline
         imp, rsp, clf = pipe
         #
@@ -67,11 +68,11 @@ class RunPipe:
             with open(imput_file_name, "wb") as f:
                 pickle.dump(data2save, f)
 
-        if self.args.train_ratio != 1.0:
-            self.stratifiedSample(X, y)
+        if train_ratio != 1.0:
+            X, y = self.stratifiedSample(X, y, train_ratio)
 
         logging.info("Preprocessing Done")
-        train_sampler = Samplar(np.array(self.X), np.array(self.y))
+        train_sampler = Samplar(np.array(X), np.array(y))
 
         precisions = []
         recalls = []

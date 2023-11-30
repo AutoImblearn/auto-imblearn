@@ -179,8 +179,35 @@ class AutoImblearn:
                 break
             else:
                 final_result = best_pipe
+
+        pipe = []
+        for imp in self.imputers:
+            if imp in best_pipe:
+                pipe.append(imp)
+                break
+        for rsp in self.resamplers:
+            if rsp in best_pipe:
+                pipe.append(rsp)
+                break
+        for clf in self.classifiers:
+            if clf in best_pipe:
+                pipe.append(clf)
+                break
+        if len(pipe) != 3:
+            raise ValueError("Some elements in pipeline {} is not yet supported".format(best_pipe))
+        best_pipe = pipe
         saver.save2file()
         return best_pipe, counter, best_score
+
+    def run_best(self, pipeline=None):
+        # Re-run the best pipeline found with 100% of data
+        if pipeline[1] == "autosmote":
+            run_autosmote = RunAutoSmote()
+            result = run_autosmote.fit(clf=pipeline[2], imp=pipeline[0], metric=self.metric, train_ratio=1.0)
+        else:
+            result = self.run_pipe.fit(pipeline, train_ratio=1.0)
+        return result
+
 
     def count_pipe(self, pipeline=None):
         # Find the optimal and count how many pipelines to check
