@@ -201,11 +201,16 @@ class AutoImblearn:
 
     def run_best(self, pipeline=None):
         # Re-run the best pipeline found with 100% of data
-        if pipeline[1] == "autosmote":
-            run_autosmote = RunAutoSmote()
-            result = run_autosmote.fit(clf=pipeline[2], imp=pipeline[0], metric=self.metric, train_ratio=1.0)
+        saver = Result(1.0, self.metric)
+        saver.load_saved_result()
+        if saver.is_in(pipeline):
+            result = saver.get(pipeline)
         else:
-            result = self.run_pipe.fit(pipeline, train_ratio=1.0)
+            if pipeline[1] == "autosmote":
+                run_autosmote = RunAutoSmote()
+                result = run_autosmote.fit(clf=pipeline[2], imp=pipeline[0], metric=self.metric, train_ratio=1.0)
+            else:
+                result = self.run_pipe.fit(pipeline, train_ratio=1.0)
         return result
 
 
