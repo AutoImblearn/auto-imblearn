@@ -57,6 +57,7 @@ if __name__ == "__main__":
     # Auto-Imblearn related
     parser.add_argument('--train_ratio', default=1.0, type=float)  # Only use certain ratio of dataset
     parser.add_argument('--metric', default='auroc', choices=['auroc', 'macro_f1'], type=str)  # Determine the metric
+    parser.add_argument('--rerun', default=False, action="store_true")  # Re-run the best pipeline found with 100% data
 
     args = parser.parse_args()
 
@@ -74,12 +75,13 @@ if __name__ == "__main__":
     automl = AutoImblearn(run_pipe, metric=args.metric)
     best_pipe, counter, best_score = automl.find_best(checked=checked, train_ratio=args.train_ratio)
 
-    if args.train_ratio != 1.0:
+    print("Final result:", best_pipe, args.metric, counter, end=" ")
+    if args.train_ratio != 1.0 and args.rerun:
         # Re-run the best pipeline with whole dataset to get the output score
         print("Re-running best pipeline")
         best_score = automl.run_best(best_pipe)
 
-    print("Final result:", best_pipe, counter, best_score)
+    print(best_score)
     best_pipe = list(best_pipe)
     logging.info("Final result. Best pipe: {}, {}, {}, counter: {}, best score: {}".format(best_pipe[0], best_pipe[1],
                                                                                            best_pipe[2], counter,
