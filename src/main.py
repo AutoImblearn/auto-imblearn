@@ -57,6 +57,7 @@ if __name__ == "__main__":
     # Auto-Imblearn related
     parser.add_argument('--train_ratio', default=1.0, type=float)  # Only use certain ratio of dataset
     parser.add_argument('--metric', default='auroc', choices=['auroc', 'macro_f1'], type=str)  # Determine the metric
+    # parser.add_argument('--rerun', default=False, action="store_true")  # Re-run the best pipeline found with 100% data
     parser.add_argument('--rerun', default=False, action="store_true")  # Re-run the best pipeline found with 100% data
 
     args = parser.parse_args()
